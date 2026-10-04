@@ -12,6 +12,7 @@ void LEDController::updateBlinkRate(float temperature) {
                         : BMEConstants::BLINK_DELAY_SLOW_MS;
 
     digitalWrite(pin, HIGH);
+    //fast delay if temp exceeds max threshold or slow if not
     delay(delayMs);
     digitalWrite(pin, LOW);
     delay(delayMs);

@@ -12,7 +12,7 @@ namespace BMEConstants
     // LED Hardware Settings
     constexpr uint8_t LED_PIN = 13;        // Onboard LED pin
 
-    // Temperature & Blink Thresholds (in Celsius)
+  
     constexpr float TEMP_MIN_C = 20.0f;
     constexpr float TEMP_MAX_C = 40.0f;
     constexpr uint16_t BLINK_DELAY_FAST_MS = 200;
