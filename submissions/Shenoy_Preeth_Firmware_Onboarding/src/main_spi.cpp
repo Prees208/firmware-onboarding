@@ -1,9 +1,22 @@
 #include <Arduino.h>
+#include "BMESPIInterface.h"
+#include "LEDController.h"
+#include "BMEConstants.h"
+
+LEDController ledController(BMEConstants::LED_PIN);
 
 void setup() {
-    // Initialization code will go here
+    Serial.begin(115200);
+    ledController.init();
+    if (!BMESPIInterfaceInstance::instance().begin()) {
+        Serial.println("Error: Failed to initialize BME280 sensor via SPI!");
+        while (1);
+    }
 }
 
 void loop() {
-    // Main loop code will go here
+    float temperature = BMESPIInterfaceInstance::instance().readTemperature();
+    Serial.print("SPI Temperature: ");
+    Serial.println(temperature);
+    ledController.updateBlinkRate(temperature);
 }

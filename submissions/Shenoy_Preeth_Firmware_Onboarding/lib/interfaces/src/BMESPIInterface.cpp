@@ -1,20 +1,31 @@
-#include "BMESPIInterface.h"
+#pragma once
+#include <Adafruit_BME280.h>
+#include <etl/singleton.h>
+#include "BMEConstants.h"
 
-BMESPIInterface::BMESPIInterface() 
-    : bme(BMEConstants::BME_CS_PIN) {} // Pass CS pin for hardware SPI
+class BMESPIInterface
+{
+private:
+    Adafruit_BME280 bme;
 
-bool BMESPIInterface::init() {
-    return bme.begin();
-}
+public:
+    BMESPIInterface() : bme(BMEConstants::BME_CS_PIN) {}
 
-float BMESPIInterface::getTemperature() {
-    return bme.readTemperature();
-}
+    bool begin() {
+        return bme.begin();
+    }
 
-float BMESPIInterface::getPressure() {
-    return bme.readPressure() / 100.0F; // Convert Pa to hPa
-}
+    float readTemperature() {
+        return bme.readTemperature();
+    }
 
-float BMESPIInterface::getHumidity() {
-    return bme.readHumidity();
-}
+    float readPressure() {
+        return bme.readPressure() / 100.0F;
+    }
+
+    float readHumidity() {
+        return bme.readHumidity();
+    }
+};
+
+using BMESPIInterfaceInstance = etl::singleton<BMESPIInterface>;
