@@ -1,5 +1,6 @@
 #pragma once
 #include <Arduino.h>
+#include <etl/singleton.h>
 #include "BMEConstants.h"
 
 class LEDController {
@@ -11,3 +12,4 @@ public:
     void init();
     void updateBlinkRate(float temperature);
 };
+using LEDControllerInstance = etl::singleton<LEDController>;

@@ -1,5 +1,6 @@
 #pragma once
 #include <Adafruit_BME280.h>
+#include <etl/singleton.h>
 #include "BMEConstants.h"
 
 class BMESPIInterface {
@@ -8,8 +9,16 @@ private:
 
 public:
     BMESPIInterface();
-    bool init();
-    float getTemperature();
+    //bool init();
+    bool begin() {
+        return bme.begin();
+    }
+    //float getTemperature();
+    float readTemperature() {
+        return bme.readTemperature();
+    }
     float getPressure();
     float getHumidity();
 };
+//added
+using BMESPIInterfaceInstance = etl::singleton<BMESPIInterface>;
